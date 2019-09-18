@@ -30,13 +30,18 @@ tfk = tf.keras
 
 import bdlb
 from bdlb.core import plotting
-from baselines.diabetic_retinopathy_diagnosis.mc_dropout.model import VGGDrop
-from baselines.diabetic_retinopathy_diagnosis.deterministic.model import predict
+from mc_dropout.model import VGGDrop
+from deterministic.model import predict
 
 ##########################
 # Command line arguments #
 ##########################
 FLAGS = flags.FLAGS
+flags.DEFINE_string(
+    name="input_dir",
+    default="~/.bdlb/data",
+    help="Path to input data.",
+)
 flags.DEFINE_string(
     name="output_dir",
     default="/tmp",
@@ -111,6 +116,7 @@ def main(argv):
   dtask = bdlb.load(
       benchmark="diabetic_retinopathy_diagnosis",
       level=FLAGS.level,
+      data_dir=FLAGS.input_dir,
       batch_size=FLAGS.batch_size,
       download_and_prepare=False,  # do not download data from this script
   )

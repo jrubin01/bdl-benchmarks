@@ -12,5 +12,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-import os, sys
-sys.path.append(os.path.abspath(os.path.join('../')))

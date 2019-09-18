@@ -38,6 +38,11 @@ from bdlb.core import plotting
 ##########################
 FLAGS = flags.FLAGS
 flags.DEFINE_string(
+    name="input_dir",
+    default="~/.bdlb/data",
+    help="Path to input data.",
+)
+flags.DEFINE_string(
     name="output_dir",
     default="/tmp",
     help="Path to store model, tensorboard and report outputs.",
@@ -114,6 +119,7 @@ def main(argv):
   dtask = bdlb.load(
       benchmark="diabetic_retinopathy_diagnosis",
       level=FLAGS.level,
+      data_dir=FLAGS.input_dir,
       batch_size=FLAGS.batch_size,
       download_and_prepare=False,  # do not download data from this script
   )

@@ -20,6 +20,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import sys
 import functools
 
 from absl import app
@@ -30,8 +31,10 @@ tfk = tf.keras
 
 import bdlb
 from bdlb.core import plotting
-from baselines.diabetic_retinopathy_diagnosis.mc_dropout.model import VGGDrop
-from baselines.diabetic_retinopathy_diagnosis.ensemble_mc_dropout.model import predict
+from mc_dropout.model import VGGDrop
+from ensemble_mc_dropout.model import predict
+#from baselines.diabetic_retinopathy_diagnosis.mc_dropout.model import VGGDrop
+#from baselines.diabetic_retinopathy_diagnosis.ensemble_mc_dropout.model import predict
 
 ##########################
 # Command line arguments #
@@ -41,6 +44,11 @@ flags.DEFINE_spaceseplist(
     name="model_checkpoints",
     default=None,
     help="Paths to checkpoints of the models.",
+)
+flags.DEFINE_string(
+    name="input_dir",
+    default="~/.bdlb/data",
+    help="Path to input data.",
 )
 flags.DEFINE_string(
     name="output_dir",
@@ -125,6 +133,7 @@ def main(argv):
   dtask = bdlb.load(
       benchmark="diabetic_retinopathy_diagnosis",
       level=FLAGS.level,
+      data_dir=FLAGS.input_dir,
       batch_size=FLAGS.batch_size,
       download_and_prepare=False,  # do not download data from this script
   )
